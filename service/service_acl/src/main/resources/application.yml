@@ -1,0 +1,40 @@
+server:
+  port: 39000
+
+spring:
+  application:
+    name: security-aclservice
+  datasource:
+    url: jdbc:mysql://localhost:3306/guli?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: yangyangDev..
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 15
+    host: 34.92.70.65
+    password: yangyangSheep39..
+    port: 36379
+    timeout: 5000
+
+    lettuce:
+      pool:
+        max-active: 50
+        max-idle: 50
+        min-idle: 5
+        time-between-eviction-runs: 1
+        max-wait: 5000
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  # mapper文件路径
+  mapper-locations: com/sheep/aclservice/mapper/xml/*.xml
+  # Mybatis Plus日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

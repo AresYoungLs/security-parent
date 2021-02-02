@@ -14,18 +14,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration//配置类
 @EnableSwagger2 //swagger注解
 public class SwaggerConfig {
-
-    @Bean
-    public Docket webApiConfig(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("webApi")
-                .apiInfo(webApiInfo())
-                .select()
-                //.paths(Predicates.not(PathSelectors.regex("/admin/.*")))
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
-                .build();
-
-    }
+    //
+    //@Bean
+    //public Docket webApiConfig(){
+    //    return new Docket(DocumentationType.SWAGGER_2)
+    //            .groupName("webApi")
+    //            .apiInfo(webApiInfo())
+    //            .select()
+    //            //.paths(Predicates.not(PathSelectors.regex("/admin/.*")))
+    //            .paths(Predicates.not(PathSelectors.regex("/error.*")))
+    //            .build();
+    //}
 
     private ApiInfo webApiInfo(){
 

@@ -1,0 +1,23 @@
+server:
+  port: 39001
+
+spring:
+  application:
+    name: nacos
+  # 把nacos自己注册进去
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    # 启用服务发现路由
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      # 配置路由规则 网关对外暴露端口 但是我的注册中心中的服务很多 如果访问的路径包含acl就转发到权限服务中去
+      routes:
+        - id: security-aclservice
+          # 设置路由的uri
+          uri: lb://security-aclservice
+          predicates: Path=/*/acl/**
+
