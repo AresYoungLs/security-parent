@@ -18,11 +18,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @ClassName TokenAuthFilter.java
+ * @author yangyangSheep
+ * @Description 自定义授权过滤器
+ * @createTime 2021/2/2 17:22
+ */
 public class TokenAuthFilter extends BasicAuthenticationFilter {
 
     private TokenManager tokenManager;
     private RedisTemplate redisTemplate;
-    public TokenAuthFilter(AuthenticationManager authenticationManager,TokenManager tokenManager,RedisTemplate redisTemplate) {
+
+    public TokenAuthFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, RedisTemplate redisTemplate) {
         super(authenticationManager);
         this.tokenManager = tokenManager;
         this.redisTemplate = redisTemplate;
@@ -33,26 +40,26 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
         //获取当前认证成功用户权限信息
         UsernamePasswordAuthenticationToken authRequest = getAuthentication(request);
         //判断如果有权限信息，放到权限上下文中
-        if(authRequest != null) {
+        if (authRequest != null) {
             SecurityContextHolder.getContext().setAuthentication(authRequest);
         }
-        chain.doFilter(request,response);
+        chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
         //从header获取token
         String token = request.getHeader("token");
-        if(token != null) {
+        if (token != null) {
             //从token获取用户名
             String username = tokenManager.getUserInfoFromToken(token);
             //从redis获取对应权限列表
-            List<String> permissionValueList = (List<String>)redisTemplate.opsForValue().get(username);
+            List<String> permissionValueList = (List<String>) redisTemplate.opsForValue().get(username);
             Collection<GrantedAuthority> authority = new ArrayList<>();
-            for(String permissionValue : permissionValueList) {
+            for (String permissionValue : permissionValueList) {
                 SimpleGrantedAuthority auth = new SimpleGrantedAuthority(permissionValue);
                 authority.add(auth);
             }
-            return new UsernamePasswordAuthenticationToken(username,token,authority);
+            return new UsernamePasswordAuthenticationToken(username, token, authority);
         }
         return null;
     }

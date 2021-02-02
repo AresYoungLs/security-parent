@@ -10,6 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @ClassName UnauthEntryPoint.java
+ * @author yangyangSheep
+ * @Description 未授权统一处理累
+ * @createTime 2021/2/2 17:21
+ */
 public class UnauthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {

@@ -1,9 +1,9 @@
 package com.sheep.security.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sheep.security.entity.SecurityUser;
 import com.sheep.security.entity.User;
 import com.sheep.security.security.TokenManager;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sheep.utils.R;
 import com.sheep.utils.ResponseUtil;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -22,10 +21,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @ClassName TokenLoginFilter.java
+ * @author yangyangSheep
+ * @Description 认证过滤器
+ * @createTime 2021/2/2 17:21
+ */
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private TokenManager tokenManager;
     private RedisTemplate redisTemplate;
+    //Spring Cloud Security封装的权限操作对象
     private AuthenticationManager authenticationManager;
 
     public TokenLoginFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, RedisTemplate redisTemplate) {
