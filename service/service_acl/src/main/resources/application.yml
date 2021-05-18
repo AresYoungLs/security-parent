@@ -6,14 +6,14 @@ spring:
     name: security-aclservice
   datasource:
     url: jdbc:mysql://localhost:3306/guli?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8
-    username: root
-    password: yangyangDev..
+    username: xxx
+    password: xxx
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     database: 15
-    host: 34.92.70.65
-    password: yangyangSheep39..
-    port: 36379
+    host: xxx
+    password: xxx
+    port: xxx
     timeout: 5000
 
     lettuce:
